@@ -17,7 +17,7 @@ siuyin@beyondbroadcast.com
 
 * net/rpc from Go standard library
 - First define a package to hold type and service definitions
-- I have chosen the package name nrpc
+- I have chosen the package name nrpc and vendored it in ./vendor
 - It is accessed as "siuyin/present-microsvc_comms/nrpc"
 
 .code nrpc/nrpc.go
@@ -110,7 +110,20 @@ We gain independent scalability.
 Hence message bus components *can* be less tightly coupled than RPC.
 Allows for faster development at the cost of type safety and bugs.
 
-* Message bus vs REST (REpresentational State Transfer)
+
+* REST (REpresentational State Transfer)
+
+
+* Server
+.play rest/server/main.go /010/,/020/
+
+* Proceesing query parameters
+.code rest/server/main.go /030/,/040/
+
+* Client
+.play -edit rest/client/main.go /010/,/020/
+
+* Message bus vs REST 
 - NATS message bus is lighter-weight than http / REST
 - ZeroMQ (1 million messages / sec), NATS (100,000 m/s), REST (10,000 m/s)
 - Message bus service args are directly (JSON/GOB) encoded rather than URL encoded (parsing overhead)
