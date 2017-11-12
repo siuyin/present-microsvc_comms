@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package arith;
+
+// Arith arithmetic service definition.
+service Arith {
+  //  Sum sums two integers
+  rpc Sum (SumArgs) returns (SumReply) {}
+}
+
+// The request message containing the Sum's Args
+message SumArgs {
+  int32 a = 1;
+  int32 b = 2;
+}
+
+// The response message containing the SumReply
+message SumReply {
+  int32 reply = 1;
+}

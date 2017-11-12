@@ -130,3 +130,44 @@ Allows for faster development at the cost of type safety and bugs.
 - Message bus requires a message broker (NATS) or library (ZeroMQ, akka etc). 
 - REST servers may often use embedded http server.
 
+
+* gRPC
+
+* Why use gRPC?
+- Supports many languages, Go, Ruby, Java, Python, C#, C++ etc.
+- Generates stubs in the above languages from a .proto interface definition file.
+- Uses binary protocol buffer serialization over http/2 transport for efficiency
+- Supports bi-directional streaming over one multiplexed connection
+
+* gRPC setup on development workstation
+- go get google.golang.org/grpc
+- download and install *protoc* from https://github.com/google/protobuf/releases
+- go get -u github.com/golang/protobuf/protoc-gen-go
+
+* Interface definition (.proto) file 
+.code grpc/arith/arith.proto
+
+* Generate Go stubs for client and server
+.play grpc/gen_stubs.sh
+
+* Generated Go stub: types
+.code grpc/arith/arith.pb.go /type SumArgs/,/\}/
+.code grpc/arith/arith.pb.go /type SumReply/,/\}/
+
+* Go stub: server API
+.code grpc/arith/arith.pb.go /type ArithServer/,/\}/
+.code grpc/arith/arith.pb.go /RegisterArithServer/,/\}/
+
+* Go stub: client API
+.code grpc/arith/arith.pb.go /type ArithClient/,/\}/
+.code grpc/arith/arith.pb.go /NewArithClient/,/\}/
+.code grpc/arith/arith.pb.go /\*arithClient\) Sum/,/^\}$/
+
+* Server Implementation (1)
+.code grpc/server/main.go /010/,/020/
+
+* Server Implementation (2)
+.play grpc/server/main.go /030/,/040/
+
+* Client Implementation
+.play -edit grpc/client/main.go /010/,/020/
