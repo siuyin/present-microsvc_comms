@@ -1,5 +1,5 @@
-Microservice Communication Strategies
-Illustrated with Go
+Microservice Communication
+Comparing net/rpc, message bus, REST and gRPC
 12 Nov 2017
 
 Loh Siu Yin
