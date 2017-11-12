@@ -63,7 +63,7 @@ We gain independent scalability.
 
 * Message Bus: Concept
 - Clients send messages to a message bus
-- Servers listen for relevant messages (subjects or topics) on the message bus
+- Servers listen for relevant messages on message bus subjects or topics
 - Servers reply with answers to the message bus
 - Clients pickup replies from the message bus
 
@@ -99,3 +99,21 @@ We gain independent scalability.
 * Client
 
 .play -edit mbus/client/main.go /010/,/020/
+
+* Message bus vs go net/rpc
+- NATS allows any encoding: JSON, gob, protocol buffers etc. JSON and gob are built-in.
+- Message bus servers and clients can be written in different languages (eg. go and python)
+- Message bus components can be type safe if type definition file is used (eg. mbus package)
+- However mbus package is specific to go. It has to be manually ported to other languages.
+- Message bus components need not use shared type definition file, type safety is lost but flexibility gained.
+
+Hence message bus components *can* be less tightly coupled than RPC.
+Allows for faster development at the cost of type safety and bugs.
+
+* Message bus vs REST (REpresentational State Transfer)
+- NATS message bus is lighter-weight than http / REST
+- ZeroMQ (1 million messages / sec), NATS (100,000 m/s), REST (10,000 m/s)
+- Message bus service args are directly (JSON/GOB) encoded rather than URL encoded (parsing overhead)
+- Message bus requires a message broker (NATS) or library (ZeroMQ, akka etc). 
+- REST servers may often use embedded http server.
+
