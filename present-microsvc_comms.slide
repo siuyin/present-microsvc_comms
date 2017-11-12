@@ -181,9 +181,12 @@ Now run the REST server (back one screen / run).
 * Server Implementation (1)
 .code grpc/server/main.go /010/,/020/
 
+- The go:generate directive allows you to generate grpc/arith/arith.pb.go with the command "go generate"
+
 * Server Implementation (2)
 .play grpc/server/main.go /030/,/040/
 
+- The above is mostly standard boiler-plate code. Just update with the appropriate server name (i.e. RegisterArithServer)
 - Let's run the gRPC server.
 
 * Client Implementation

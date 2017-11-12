@@ -24,7 +24,7 @@ func main() {
 	defer c.Close()
 
 	var reply mbus.Reply
-	err = c.Request(mbus.ArithSum, mbus.Args{3, 4}, &reply, 1*time.Second)
+	err = c.Request(mbus.ArithSum, mbus.Args{3, 4}, &reply, 1*time.Second) // HL
 	if err != nil {
 		log.Fatalf("request failed: %v", err)
 	}

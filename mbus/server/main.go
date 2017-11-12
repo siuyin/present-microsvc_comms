@@ -22,8 +22,8 @@ func main() {
 	defer c.Close()
 
 	//030 OMIT
-	c.Subscribe(mbus.ArithSum, func(subj, reply string, args *mbus.Args) {
-		c.Publish(reply, mbus.Reply(args.A+args.B))
+	c.Subscribe(mbus.ArithSum, func(subj, reply string, args *mbus.Args) { // HL
+		c.Publish(reply, mbus.Reply(args.A+args.B)) // HL
 	})
 	//040 OMIT
 

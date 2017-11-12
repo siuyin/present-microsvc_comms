@@ -18,7 +18,7 @@ func main() {
 
 	args := &nrpc.Args{3, 4}
 	var reply int
-	err = client.Call("Arith.Sum", args, &reply)
+	err = client.Call("Arith.Sum", args, &reply) // HL
 	if err != nil {
 		log.Fatalf("error encountered with rpc sum call: %v", err)
 	}

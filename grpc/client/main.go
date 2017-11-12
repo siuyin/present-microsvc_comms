@@ -21,10 +21,10 @@ func main() {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	c := pb.NewArithClient(conn)
+	c := pb.NewArithClient(conn) // HL
 
 	// Contact the server and print out its response.
-	reply, err := c.Sum(context.Background(), &pb.SumArgs{3, 4})
+	reply, err := c.Sum(context.Background(), &pb.SumArgs{3, 4}) // HL
 	if err != nil {
 		log.Fatalf("could not compute sum: %v", err)
 	}

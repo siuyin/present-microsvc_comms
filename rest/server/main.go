@@ -31,7 +31,7 @@ func main() {
 	http.HandleFunc("/sum", func(w http.ResponseWriter, r *http.Request) {
 		aStr := r.FormValue("a")
 		bStr := r.FormValue("b")
-		sum, err := sumStr(aStr, bStr)
+		sum, err := sumStr(aStr, bStr) // HL
 		if err != nil {
 			fmt.Fprintf(w, "ERROR: %v", err)
 			return

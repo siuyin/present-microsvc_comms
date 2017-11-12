@@ -14,7 +14,7 @@ func main() {
 	v := url.Values{}
 	v.Set("a", "3")
 	v.Add("b", "4")
-	q := v.Encode()
+	q := v.Encode() // HL
 
 	resp, err := http.Get("http://localhost:8080/sum?" + q)
 	if err != nil {
