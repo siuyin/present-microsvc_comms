@@ -117,12 +117,21 @@ Allows for faster development at the cost of type safety and bugs.
 
 
 * Server
+- The heart of the server is *sumStr*
+
 .play rest/server/main.go /010/,/020/
+
+- Let's see what *sumStr* does.
 
 * Proceesing query parameters
 .code rest/server/main.go /030/,/040/
 
+Now run the REST server (back one screen / run).
+
+
 * Client
+- We must URL encode our parameters
+
 .play -edit rest/client/main.go /010/,/020/
 
 * Message bus vs REST 
@@ -154,6 +163,8 @@ Allows for faster development at the cost of type safety and bugs.
 * Generate Go stubs for client and server
 .play grpc/gen_stubs.sh
 
+- As previously mentioned, this single .proto file can generate stubs for multiple languages, Go, Python, C#, java ...
+- Change --go_out to --java_out etc.
 * Generated Go stub: types
 .code grpc/arith/arith.pb.go /type SumArgs/,/\}/
 .code grpc/arith/arith.pb.go /type SumReply/,/\}/
@@ -172,6 +183,8 @@ Allows for faster development at the cost of type safety and bugs.
 
 * Server Implementation (2)
 .play grpc/server/main.go /030/,/040/
+
+- Let's run the gRPC server.
 
 * Client Implementation
 .play -edit grpc/client/main.go /010/,/020/
