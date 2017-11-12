@@ -29,7 +29,7 @@ siuyin@beyondbroadcast.com
 
 .play nrpc/server/main.go /010/,/020/
 
-- Lets run the server.
+- Let's run the server.
 
 * Client
 - The client also imports the nrpc package
@@ -96,6 +96,7 @@ We gain independent scalability.
 - reply -- the NATS topic (subject) to send replies to
 - args -- input arguments
 
+Let's run the server (back one screen / run).
 
 * Client
 
