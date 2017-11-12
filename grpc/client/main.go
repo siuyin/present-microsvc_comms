@@ -13,6 +13,7 @@ import (
 
 const address = "localhost:50051"
 
+//go:generate protoc -I ../arith --go_out=plugins=grpc:../arith ../arith/arith.proto
 func main() {
 	// Set up a connection to the server.
 	conn, err := grpc.Dial(address, grpc.WithInsecure())

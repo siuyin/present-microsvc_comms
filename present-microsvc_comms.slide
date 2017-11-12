@@ -147,6 +147,8 @@ Allows for faster development at the cost of type safety and bugs.
 * Interface definition (.proto) file 
 .code grpc/arith/arith.proto
 
+- = 1, = 2 are index tags
+
 * Generate Go stubs for client and server
 .play grpc/gen_stubs.sh
 
