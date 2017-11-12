@@ -1,0 +1,101 @@
+Microservice Communication Strategies
+Illustrated with Go
+12 Nov 2017
+
+Loh Siu Yin
+Technology Consultant, Beyond Broadcast LLP
+siuyin@beyondbroadcast.com
+
+* Monolith
+- Program implemented within a single process
+
+.play -edit mono/main.go
+
+
+* Remote Procedure Call
+
+
+* net/rpc from Go standard library
+- First define a package to hold type and service definitions
+- I have chosen the package name nrpc
+- It is accessed as "siuyin/present-microsvc_comms/nrpc"
+
+.code nrpc/nrpc.go
+
+* Server
+- The server imports the nrpc package
+- Implements Arith.Sum service
+
+.play nrpc/server/main.go /010/,/020/
+
+- Lets run the server.
+
+* Client
+- The client also imports the nrpc package
+- Calls the service
+
+.play -edit nrpc/client/main.go /010/,/020/
+
+* What was gained in creating the Arith service?
+- Well defined responsibilities: Client responsible for UI and Server for computation.
+- Servers can be updated without changing Client code and vice-versa.
+
+We have well defined separation of concerns.
+
+---
+
+- One Server can serve many clients (when computation is cheap).
+- Many Servers can be deployed to serve clients (when computation is expensive)
+We gain independent scalability.
+
+
+* The costs are:
+
+- additional complexity
+- network latency
+- multiple servers must be served behind a load balancer
+- with go net/rpc both Server and Client must be written in Go (gob serialization)
+- Servers and Clients are still tightly coupled via RPC
+
+
+* Message Bus
+
+
+* Message Bus: Concept
+- Clients send messages to a message bus
+- Servers listen for relevant messages (subjects or topics) on the message bus
+- Servers reply with answers to the message bus
+- Clients pickup replies from the message bus
+
+* Start a message bus
+- I will use the NATS message bus 
+- Download and install the gnatsd binary to a folder on your path
+.link http://nats.io/
+
+.play nats_start.sh
+
+* Define message types and message bus subjects / topics
+- Package mbus accessible as "siuyin/present-microsvc_comms/mbus"
+
+.code mbus/mbus.go
+
+
+* Server
+- go get github.com/nats-io/go-nats
+
+.play  mbus/server/main.go /010/,/020/
+
+* Some NATS detail
+.code mbus/server/main.go /030/,/040/
+
+- with the NATS (json) encoded connection
+- subscribe to the mbus.ArithSum subject
+- handle messages with the function that receives as parameters
+- subj -- the NATS subject
+- reply -- the NATS topic (subject) to send replies to
+- args -- input arguments
+
+
+* Client
+
+.play -edit mbus/client/main.go /010/,/020/
