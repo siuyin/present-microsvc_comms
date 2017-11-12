@@ -11,6 +11,7 @@ siuyin@beyondbroadcast.com
 
 .play -edit mono/main.go
 
+- Nothing wrong with monoliths. However to update anything, you have to shutdown the entire system / program.
 
 * Remote Procedure Call
 
