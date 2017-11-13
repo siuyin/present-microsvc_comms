@@ -9,12 +9,6 @@
 			"revisionTime": "2017-10-21T04:39:52Z"
 		},
 		{
-			"checksumSHA1": "XNHQiRltA7NQJV0RvUroY+cf+zg=",
-			"path": "github.com/golang/protobuf/protoc-gen-go/descriptor",
-			"revision": "1643683e1b54a9e88ad26d98f81400c8c9d9f4f9",
-			"revisionTime": "2017-10-21T04:39:52Z"
-		},
-		{
 			"checksumSHA1": "VfkiItDBFFkZluaAMAzJipDXNBY=",
 			"path": "github.com/golang/protobuf/ptypes",
 			"revision": "1643683e1b54a9e88ad26d98f81400c8c9d9f4f9",
@@ -213,18 +207,6 @@
 			"revisionTime": "2017-11-09T21:53:22Z"
 		},
 		{
-			"checksumSHA1": "JF/KBFCo5JwVtXfrZ2kJnFRC6W8=",
-			"path": "google.golang.org/grpc/reflection",
-			"revision": "de2209a968d48e8970546c8a710189f7461370f7",
-			"revisionTime": "2017-11-09T21:53:22Z"
-		},
-		{
-			"checksumSHA1": "7Ax2K0St9CIi1rkA9Ju+2ERfe9E=",
-			"path": "google.golang.org/grpc/reflection/grpc_reflection_v1alpha",
-			"revision": "de2209a968d48e8970546c8a710189f7461370f7",
-			"revisionTime": "2017-11-09T21:53:22Z"
-		},
-		{
 			"checksumSHA1": "H7VyP18nJ9MmoB5r9+I7EKVEeVM=",
 			"path": "google.golang.org/grpc/resolver",
 			"revision": "de2209a968d48e8970546c8a710189f7461370f7",
@@ -265,6 +247,24 @@
 			"path": "google.golang.org/grpc/transport",
 			"revision": "de2209a968d48e8970546c8a710189f7461370f7",
 			"revisionTime": "2017-11-09T21:53:22Z"
+		},
+		{
+			"checksumSHA1": "CV+e213js8hzlV5cj8yMYJAGGSE=",
+			"path": "siuyin/present-microsvc_comms/grpc/arith",
+			"revision": "6a6ed16b151b2849cfb7b181a7eb5b9e155a6c3f",
+			"revisionTime": "2017-11-13T03:04:00Z"
+		},
+		{
+			"checksumSHA1": "kHKsb4mi2EQ09rSBXLn01HVNZ3k=",
+			"path": "siuyin/present-microsvc_comms/mbus",
+			"revision": "6a6ed16b151b2849cfb7b181a7eb5b9e155a6c3f",
+			"revisionTime": "2017-11-13T03:04:00Z"
+		},
+		{
+			"checksumSHA1": "gpqZyuf8ghbx5yOyJ+bZGWQWxcE=",
+			"path": "siuyin/present-microsvc_comms/nrpc",
+			"revision": "6a6ed16b151b2849cfb7b181a7eb5b9e155a6c3f",
+			"revisionTime": "2017-11-13T03:04:00Z"
 		}
 	],
 	"rootPath": "siuyin/present-microsvc_comms"
