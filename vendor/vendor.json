@@ -135,12 +135,6 @@
 			"revisionTime": "2017-11-03T03:06:25Z"
 		},
 		{
-			"checksumSHA1": "AEP7PdQX3iyFzONnUS/065Mb0U0=",
-			"path": "google.golang.org/grpc",
-			"revision": "de2209a968d48e8970546c8a710189f7461370f7",
-			"revisionTime": "2017-11-09T21:53:22Z"
-		},
-		{
 			"checksumSHA1": "rbTWD4bqUpDwyuLPqzHwJZYlBbQ=",
 			"path": "google.golang.org/grpc/balancer",
 			"revision": "de2209a968d48e8970546c8a710189f7461370f7",
@@ -273,5 +267,5 @@
 			"revisionTime": "2017-11-09T21:53:22Z"
 		}
 	],
-	"rootPath": "present-microsvc_comms"
+	"rootPath": "siuyin/present-microsvc_comms"
 }
