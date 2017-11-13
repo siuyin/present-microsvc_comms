@@ -104,6 +104,7 @@ Let's run the server (back one screen / run).
 
 * Message bus vs go net/rpc
 - NATS allows any encoding: JSON, gob, protocol buffers etc. JSON and gob are built-in.
+- NATS RequestWithContext allows for explicit cancellation or timeouts.
 - Message bus servers and clients can be written in different languages (eg. go and python)
 - Message bus components can be type safe if type definition file is used (eg. mbus package)
 - However mbus package is specific to go. It has to be manually ported to other languages.
@@ -149,6 +150,7 @@ Now run the REST server (back one screen / run).
 - Generates stubs in the above languages from a .proto interface definition file.
 - Uses binary protocol buffer serialization over http/2 transport for efficiency
 - Supports bi-directional streaming over one multiplexed connection
+- golang context support allows for explicit cancellation and/or timeouts
 
 * gRPC setup on development workstation
 - go get google.golang.org/grpc
