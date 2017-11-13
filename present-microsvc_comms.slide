@@ -109,6 +109,7 @@ Let's run the server (back one screen / run).
 - Message bus components can be type safe if type definition file is used (eg. mbus package)
 - However mbus package is specific to go. It has to be manually ported to other languages.
 - Message bus components need not use shared type definition file, type safety is lost but flexibility gained.
+- Message bus allows Pub/Sub. RPC does not.
 
 Hence message bus components *can* be less tightly coupled than RPC.
 Allows for faster development at the cost of type safety and bugs.
