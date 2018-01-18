@@ -45,8 +45,8 @@ We have well defined separation of concerns.
 
 ---
 
-- One Server can serve many clients (when computation is cheap).
-- Many Servers can be deployed to serve clients (when computation is expensive)
+- One Server can serve many clients (when jobs are CPU light).
+- Many Servers can be deployed to serve clients (when jobs are CPU heavy eg. video encoding)
 We gain independent scalability.
 
 
@@ -56,7 +56,7 @@ We gain independent scalability.
 - network latency
 - multiple servers must be served behind a load balancer
 - with go net/rpc both Server and Client must be written in Go (gob serialization)
-- Servers and Clients are still tightly coupled via RPC
+- Servers and Clients are tightly coupled via RPC
 
 
 * Message Bus
