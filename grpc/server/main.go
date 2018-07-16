@@ -23,7 +23,7 @@ type server struct{}
 
 // Sum implements ArithServer.Sum
 func (s *server) Sum(ctx context.Context, in *pb.SumArgs) (*pb.SumReply, error) {
-	return &pb.SumReply{in.A + in.B}, nil
+	return &pb.SumReply{Reply: in.A + in.B}, nil
 }
 
 //020 OMIT

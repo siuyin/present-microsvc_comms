@@ -24,7 +24,7 @@ func main() {
 	c := pb.NewArithClient(conn) // HL
 
 	// Contact the server and print out its response.
-	reply, err := c.Sum(context.Background(), &pb.SumArgs{3, 4}) // HL
+	reply, err := c.Sum(context.Background(), &pb.SumArgs{A: 3, B: 4}) // HL
 	if err != nil {
 		log.Fatalf("could not compute sum: %v", err)
 	}
