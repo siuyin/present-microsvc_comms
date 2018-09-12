@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/rpc"
-	"siuyin/present-microsvc_comms/nrpc"
+
+	"github.com/siuyin/present-microsvc_comms/nrpc"
 )
 
 //010 OMIT

@@ -10,9 +10,10 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	//010 OMIT
-	pb "siuyin/present-microsvc_comms/grpc/arith"
+	pb "github.com/siuyin/present-microsvc_comms/grpc/arith" // 1 // HL
 )
 
+// 2 go:generate // HL
 //go:generate protoc -I ../arith --go_out=plugins=grpc:../arith ../arith/arith.proto
 const (
 	port = ":50051"
@@ -22,7 +23,7 @@ const (
 type server struct{}
 
 // Sum implements ArithServer.Sum
-func (s *server) Sum(ctx context.Context, in *pb.SumArgs) (*pb.SumReply, error) {
+func (s *server) Sum(ctx context.Context, in *pb.SumArgs) (*pb.SumReply, error) { // 3 // HL
 	return &pb.SumReply{Reply: in.A + in.B}, nil
 }
 

@@ -1,8 +1,16 @@
 # Microservice communications
 
-## Note on vendoring grpc
-1. You *can* vendor gRPC but it will conflict with the gRPC already on your GOPATH.
-1. On a clean go install the vendored gRPC will be used as it is the only one present.
+## present play will not work
+The play function of present compiles and runs go code
+in a tree outside of the module root.
+Thus play will not be able to use go.mod and thus fails to work.
+
+## gRPC on go modules
+1. This edition tries out gRPC with go modules.
+  The vendor folder is ignored.
+
+1. If you have cloned this repo in you $GOPATH/src then  
+  export GO111MODULE=on to force go modules to be active.
 
 ## If running in a docker container
 1. docker run -it --name present -v godata:/home/siuyin/go -p 3999:3999 siuyin/go:dev

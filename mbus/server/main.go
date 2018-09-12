@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/nats-io/go-nats"
-	"siuyin/present-microsvc_comms/mbus"
+	"github.com/siuyin/present-microsvc_comms/mbus"
 )
 
 //010 OMIT

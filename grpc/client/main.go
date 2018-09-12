@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc"
 
 	//010 OMIT
-	pb "siuyin/present-microsvc_comms/grpc/arith"
+	pb "github.com/siuyin/present-microsvc_comms/grpc/arith"
 )
 
 const address = "localhost:50051"
@@ -28,7 +28,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("could not compute sum: %v", err)
 	}
-	fmt.Printf("the sum of 3 and 4 is: %v", reply.Reply)
+	fmt.Printf("the sum of 3 and 4 is: %v\n", reply.Reply)
 }
 
 //020 OMIT

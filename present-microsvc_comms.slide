@@ -1,10 +1,24 @@
-Microservice Communications
+Microservice Communications (go modules edition)
 Comparing Go net/rpc, message bus, REST and gRPC
-3 Apr 2018
+12 Sep 2018
 
 Loh Siu Yin
 Technology Consultant, Beyond Broadcast LLP
 siuyin@beyondbroadcast.com
+
+* Go Modules
+- feature introduced as experimental in go 1.11
+- GO111MODULE environment variable is a switch (default = auto, on, off)
+- if code is in $GOPATH/src go modules is off, GO111MODULE=on to force on.
+
+* go.mod
+Create a go.mod file and give your module a name eg. present-microsvc_comms
+or better github.com/siuyin/present-microsvc_comms
+
+go.mod:
+
+  module github.com/siuyin/present-microsvc_comms
+
 
 * Monolith
 - Program implemented within a single process
@@ -18,24 +32,36 @@ siuyin@beyondbroadcast.com
 
 * net/rpc from Go standard library
 - First define a package to hold type and service definitions
-- I have chosen the package name nrpc and vendored it in ./vendor
-- It is accessed as "siuyin/present-microsvc_comms/nrpc"
+- I have chosen the package name nrpc. It is in sub-folder nrpc.
 
 .code nrpc/nrpc.go
 
 * Server
+- My nrpc package is accessed as "github.com/siuyin/present-microsvc_comms/nrpc" 
 - The server imports the nrpc package
 - Implements Arith.Sum service
 
-.play nrpc/server/main.go /010/,/020/
+file: nrpc/server/main.go
+
+.code nrpc/server/main.go /004 O/,/005 O/
+
+* server main()
+
+.code nrpc/server/main.go /010/,/020/
 
 - Let's run the server.
+
+  go run nrpc/server/main.go
 
 * Client
 - The client also imports the nrpc package
 - Calls the service
 
-.play -edit nrpc/client/main.go /010/,/020/
+.code nrpc/client/main.go /010/,/020/
+
+* client run
+
+  go run nrpc/client/main.go
 
 * What was gained in creating the Arith service?
 - Well defined responsibilities: Client responsible for UI and Server for computation.
@@ -73,18 +99,20 @@ We gain independent scalability.
 - Download and install the gnatsd binary to a folder on your path
 .link http://nats.io/
 
-.play nats_start.sh
+run nats server:
+
+  ~/go/bin/gnatsd
 
 * Define message types and message bus subjects / topics
-- Package mbus accessible as "siuyin/present-microsvc_comms/mbus"
+- Package mbus accessible as "github.com/siuyin/present-microsvc_comms/mbus"
 
 .code mbus/mbus.go
 
 
-* Server
-- go get github.com/nats-io/go-nats
+* Server main()
 
-.play  mbus/server/main.go /010/,/020/
+.code  mbus/server/main.go /010/,/020/
+
 
 * Some NATS detail
 .code mbus/server/main.go /030/,/040/
@@ -96,11 +124,17 @@ We gain independent scalability.
 - reply -- the NATS topic (subject) to send replies to
 - args -- input arguments
 
-Let's run the server (back one screen / run).
+Let's run the server:
+
+  go run mbus/server/main.go
 
 * Client
 
-.play -edit mbus/client/main.go /010/,/020/
+.code mbus/client/main.go /010/,/020/
+
+* Running the client
+
+  go run mbus/client/main.go
 
 * Message bus vs go net/rpc
 - NATS allows any encoding: JSON, gob, protocol buffers etc. JSON and gob are built-in.
@@ -117,6 +151,18 @@ Allows for faster development at the cost of type safety and bugs.
 
 * REST (REpresentational State Transfer)
 
+* Well not REST but http/json
+
+- REST is based on the idea of a resource that behaves in predictable ways.
+- eg. if _user_ is a resource
+- you can GET user _id_
+- or PUT user _id_ to update that user, etc.
+
+---
+
+What I  describe next is http/json
+where I perform RPC over http as a transport mechanism and
+use json as the message encoding.
 
 * Server
 - The heart of the server is *sumStr*
@@ -132,16 +178,17 @@ Now run the REST server (back one screen / run).
 
 
 * Client
-- We must URL encode our parameters
+- Here we URL encode our parameters
 
 .play -edit rest/client/main.go /010/,/020/
 
-* Message bus vs REST 
-- NATS message bus is lighter-weight than http / REST
+* Message bus vs http/json
+- NATS message bus is lighter-weight than http/json
 - ZeroMQ (1 million messages / sec), NATS (100,000 m/s), REST (10,000 m/s)
 - Message bus service args are directly (JSON/GOB) encoded rather than URL encoded (parsing overhead)
+- In both cases the encoding (JSON, GOB or URL) is not standardized and is up to the user to choose. This can lead to compatibility issues as the system grows.
 - Message bus requires a message broker (NATS) or library (ZeroMQ, akka etc). 
-- REST servers may often use embedded http server.
+- http/json servers may often use embedded http server.
 
 
 * gRPC
@@ -154,9 +201,10 @@ Now run the REST server (back one screen / run).
 - golang context support allows for explicit cancellation and/or timeouts
 
 * gRPC setup on development workstation
+- change directory to your module root (to allow go.mod to track dependencies)
 - go get google.golang.org/grpc
 - download and install *protoc* from https://github.com/google/protobuf/releases
-- go get -u github.com/golang/protobuf/protoc-gen-go
+- go get github.com/golang/protobuf/protoc-gen-go
 
 * Interface definition (.proto) file 
 .code grpc/arith/arith.proto
@@ -165,6 +213,8 @@ Now run the REST server (back one screen / run).
 
 * Generate Go stubs for client and server
 .play grpc/gen_stubs.sh
+
+---
 
 - As previously mentioned, this single .proto file can generate stubs for multiple languages, Go, Python, C#, java ...
 - Change --go_out to --java_out etc.
@@ -184,13 +234,48 @@ Now run the REST server (back one screen / run).
 * Server Implementation (1)
 .code grpc/server/main.go /010/,/020/
 
-- The go:generate directive allows you to generate grpc/arith/arith.pb.go with the command "go generate"
+- The go:generate directive allows you to generate grpc/arith/arith.pb.go with the command "go generate grpc/server/main.go"
 
 * Server Implementation (2)
-.play grpc/server/main.go /030/,/040/
+.code grpc/server/main.go /030/,/040/
 
 - The above is mostly standard boiler-plate code. Just update with the appropriate server name (i.e. RegisterArithServer)
 - Let's run the gRPC server.
 
+  go run grpc/server/main.go
+
 * Client Implementation
-.play -edit grpc/client/main.go /010/,/020/
+.code grpc/client/main.go /010/,/020/
+
+* Running the gRPC client
+
+  go run grpc/client/main.go
+
+* What have we gained from gRPC?
+- .proto file defined a strict contract between client and server
+- message encoding handled for you (protocol buffers by default)
+- polyglot capable (server in go, client in python etc.)
+
+Cons:
+
+- must learn the .proto IDL (Interface Definition Language)
+- requires protoc and appropritate language plugins to generate stubs (not go gettable)
+
+* gRPC vs go net/rpc
+
+Use gRPC:
+
+- your system is polyglot
+- you need middleware (gRPC interceptors)
+
+---
+
+Use go net/rpc:
+
+- if your system is entirely in go 
+- you do not need the features of gRPC
+
+* code and presentation download
+
+.link https://github.com/siuyin/present-microsvc_comms
+

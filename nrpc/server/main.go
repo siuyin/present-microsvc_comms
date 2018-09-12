@@ -1,3 +1,4 @@
+//004 OMIT
 package main
 
 import (
@@ -7,13 +8,14 @@ import (
 	"net/http"
 	"net/rpc"
 
-	"siuyin/present-microsvc_comms/nrpc"
+	"github.com/siuyin/present-microsvc_comms/nrpc" // HL
 )
 
+//005 OMIT
 //010 OMIT
 func main() {
 	fmt.Println("net/rpc Arith server")
-	arith := new(nrpc.Arith) // nrpc from import "siuyin/present-microsvc_comms/nrpc" // HL
+	arith := new(nrpc.Arith) // nrpc from import statement // HL
 	rpc.Register(arith)
 	rpc.HandleHTTP()
 	lis, err := net.Listen("tcp", ":1234")

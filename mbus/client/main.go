@@ -5,9 +5,8 @@ import (
 	"log"
 	"time"
 
-	"siuyin/present-microsvc_comms/mbus"
-
 	"github.com/nats-io/go-nats"
+	"github.com/siuyin/present-microsvc_comms/mbus"
 )
 
 //010 OMIT
@@ -29,7 +28,7 @@ func main() {
 		log.Fatalf("request failed: %v", err)
 	}
 
-	fmt.Printf("the sum of 3 and 4 is: %v", reply)
+	fmt.Printf("the sum of 3 and 4 is: %v\n", reply)
 }
 
 //020 OMIT
